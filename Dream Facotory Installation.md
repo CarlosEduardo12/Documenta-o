@@ -25,9 +25,9 @@ Para instalar essa dependência basta escolher a versão mais recente e baixar o
 * Adicionar/descomentar a extensão no php.ini
 * Baixar o cliente no site da [Oracle](https://www.oracle.com/database/technologies/instant*client/downloads.html) (Recomendação versao 10)
 * Criar um diretorio na raiz
- - Ex: C:\Oracle\instantclient_10_2
+  * Ex: C:\Oracle\instantclient_10_2
 * Criar as variaveis de ambiente e adicionar no Path. Ex: 
- - OCI_LIB64 :  C:\oracle\instantclient_10_2 
- - TNS_ADMIN :  C:\oracle\instantclient_10_2
+  * OCI_LIB64 :  C:\oracle\instantclient_10_2 
+  * TNS_ADMIN :  C:\oracle\instantclient_10_2
 
 * Reiniciar todos os serviços do WAMP
