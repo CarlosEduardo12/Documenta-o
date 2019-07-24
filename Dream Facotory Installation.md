@@ -19,7 +19,7 @@ Para instalar essa dependência basta escolher a versão do PHP que o WAMP esta 
 * Reiniciar todos os serviços do WAMP
 
 #### OCI8
-Para instalar essa dependência basta escolher a versão do PHP que o WAMP está utilizando e baixar o pacote com a dll no [link](https://pecl.php.net/package/oci8)
+Para instalar essa dependência basta escolher a versão mais recente e baixar o pacote com a dll no [link](https://pecl.php.net/package/oci8)
 
 * Adicionar o .dll no diretorio do PHP no WAMP _C:\wamp64\bin\php\phpx.x.x\ext_
 * Adicionar/descomentar a extensão no php.ini
