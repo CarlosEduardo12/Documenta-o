@@ -1,1 +1,189 @@
-{"swagger":"2.0","info":{"description":"Integração do portal https://www.ams.br-petrobras.com.br/","version":"1.0","title":"Petrobras Petroleo"},"basePath":"/","tags":[],"schemes":["http"],"paths":{"/api/valid-petrobras-distribuidora/eligible":{"post":{"parameters":[{"name":"Request","required":true,"in":"body","schema":{"$ref":"#/definitions/Request"}}],"responses":{"200":{"description":"Sucesso","schema":{"$ref":"#/definitions/ResponseData"}},"400":{"description":"BadRequest","schema":{"$ref":"#/definitions/ResponseErro"}},"401":{"description":"Unauthorized","schema":{"$ref":"#/definitions/ResponseErro"}}},"produces":["application/json"],"consumes":["application/json"]}}},"definitions":{"Credentials":{"type":"object","properties":{"user":{"type":"string"},"password":{"type":"string"}},"required":["user","password"]},"Covenant":{"type":"object","properties":{"id":{"type":"string"},"credentials":{"$ref":"#/definitions/Credentials"}},"required":["id","credentials"]},"Patient":{"type":"object","properties":{"card_number":{"type":"string"}},"required":["card_number"]},"Request":{"type":"object","properties":{"covenant":{"$ref":"#/definitions/Covenant"},"patient":{"$ref":"#/definitions/Patient"}},"required":["covenant","patient"]},"Address":{"type":"object","properties":{"street":{"type":"string"},"number":{"type":"string"},"neighborhood":{"type":"string"},"city":{"type":"string"},"state":{"type":"string"}},"required":["street","number","neighborhood","city","state"]},"Contact":{"type":"object","properties":{"prefix":{"type":"string"},"phone":{"type":"string"}},"required":["prefix","phone"]},"Plan":{"type":"object","properties":{"code":{"type":"string"},"network":{"type":"string"},"name":{"type":"string"},"accommodation":{"type":"string"},"segment":{"type":"string"},"product":{"type":"string"},"companion":{"type":"string"}},"required":["code","network","name","accommodation","segment","product","companion"]},"PatientData":{"type":"object","properties":{"name":{"type":"string"},"gender":{"type":"string"},"card_number":{"type":"string"},"birth":{"type":"string"},"cpf":{"type":"string"},"address":{"$ref":"#/definitions/Address"},"contact":{"$ref":"#/definitions/Contact"},"cns":{"type":"string"},"plan":{"$ref":"#/definitions/Plan"}},"required":["name","gender","card_number","birth","cpf","address","contact","cns","plan"]},"CovenantResponse":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"}},"required":["id","name"]},"ResponseData":{"type":"object","properties":{"status":{"type":"string"},"patient":{"$ref":"#/definitions/PatientData"},"covenant":{"$ref":"#/definitions/CovenantResponse"},"id":{"type":"string"}},"required":["status","patient","covenant","id"]},"ResponseErro":{"type":"object","properties":{"error":{"type":"string"},"error_portal":{"type":"string"},"extra":{"type":"string"},"id":{"type":"string"}},"required":["error","error_portal","extra","id"]}}}
+{
+  'swagger': '2.0',
+  'info':
+    {
+      'description': 'Integração do portal https://www.ams.br-petrobras.com.br/',
+      'version': '1.0',
+      'title': 'Petrobras Petroleo',
+    },
+  'basePath': '/',
+  'tags': [],
+  'schemes': ['http'],
+  'paths':
+    {
+      '/api/valid-petrobras-distribuidora/eligible':
+        {
+          'post':
+            {
+              'parameters':
+                [
+                  {
+                    'name': 'Request',
+                    'required': true,
+                    'in': 'body',
+                    'schema': { '$ref': '#/definitions/Request' },
+                  },
+                ],
+              'responses':
+                {
+                  '200':
+                    {
+                      'description': 'Sucesso',
+                      'schema': { '$ref': '#/definitions/ResponseData' },
+                    },
+                  '400':
+                    {
+                      'description': 'BadRequest',
+                      'schema': { '$ref': '#/definitions/ResponseErro' },
+                    },
+                  '401':
+                    {
+                      'description': 'Unauthorized',
+                      'schema': { '$ref': '#/definitions/ResponseErro' },
+                    },
+                },
+              'produces': ['application/json'],
+              'consumes': ['application/json'],
+            },
+        },
+    },
+  'definitions':
+    {
+      'Credentials':
+        {
+          'type': 'object',
+          'properties':
+            { 'user': { 'type': 'string' }, 'password': { 'type': 'string' } },
+          'required': ['user', 'password'],
+        },
+      'Covenant':
+        {
+          'type': 'object',
+          'properties':
+            {
+              'id': { 'type': 'string' },
+              'credentials': { '$ref': '#/definitions/Credentials' },
+            },
+          'required': ['id', 'credentials'],
+        },
+      'Patient':
+        {
+          'type': 'object',
+          'properties': { 'card_number': { 'type': 'string' } },
+          'required': ['card_number'],
+        },
+      'Request':
+        {
+          'type': 'object',
+          'properties':
+            {
+              'covenant': { '$ref': '#/definitions/Covenant' },
+              'patient': { '$ref': '#/definitions/Patient' },
+            },
+          'required': ['covenant', 'patient'],
+        },
+      'Address':
+        {
+          'type': 'object',
+          'properties':
+            {
+              'street': { 'type': 'string' },
+              'number': { 'type': 'string' },
+              'neighborhood': { 'type': 'string' },
+              'city': { 'type': 'string' },
+              'state': { 'type': 'string' },
+            },
+          'required': ['street', 'number', 'neighborhood', 'city', 'state'],
+        },
+      'Contact':
+        {
+          'type': 'object',
+          'properties':
+            { 'prefix': { 'type': 'string' }, 'phone': { 'type': 'string' } },
+          'required': ['prefix', 'phone'],
+        },
+      'Plan':
+        {
+          'type': 'object',
+          'properties':
+            {
+              'code': { 'type': 'string' },
+              'network': { 'type': 'string' },
+              'name': { 'type': 'string' },
+              'accommodation': { 'type': 'string' },
+              'segment': { 'type': 'string' },
+              'product': { 'type': 'string' },
+              'companion': { 'type': 'string' },
+            },
+          'required':
+            [
+              'code',
+              'network',
+              'name',
+              'accommodation',
+              'segment',
+              'product',
+              'companion',
+            ],
+        },
+      'PatientData':
+        {
+          'type': 'object',
+          'properties':
+            {
+              'name': { 'type': 'string' },
+              'gender': { 'type': 'string' },
+              'card_number': { 'type': 'string' },
+              'birth': { 'type': 'string' },
+              'cpf': { 'type': 'string' },
+              'address': { '$ref': '#/definitions/Address' },
+              'contact': { '$ref': '#/definitions/Contact' },
+              'cns': { 'type': 'string' },
+              'plan': { '$ref': '#/definitions/Plan' },
+            },
+          'required':
+            [
+              'name',
+              'gender',
+              'card_number',
+              'birth',
+              'cpf',
+              'address',
+              'contact',
+              'cns',
+              'plan',
+            ],
+        },
+      'CovenantResponse':
+        {
+          'type': 'object',
+          'properties':
+            { 'id': { 'type': 'string' }, 'name': { 'type': 'string' } },
+          'required': ['id', 'name'],
+        },
+      'ResponseData':
+        {
+          'type': 'object',
+          'properties':
+            {
+              'status': { 'type': 'string' },
+              'patient': { '$ref': '#/definitions/PatientData' },
+              'covenant': { '$ref': '#/definitions/CovenantResponse' },
+              'id': { 'type': 'string' },
+            },
+          'required': ['status', 'patient', 'covenant', 'id'],
+        },
+      'ResponseErro':
+        {
+          'type': 'object',
+          'properties':
+            {
+              'error': { 'type': 'string' },
+              'error_portal': { 'type': 'string' },
+              'extra': { 'type': 'string' },
+              'id': { 'type': 'string' },
+            },
+          'required': ['error', 'error_portal', 'extra', 'id'],
+        },
+    },
+}
