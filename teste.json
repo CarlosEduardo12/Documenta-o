@@ -1,1447 +1,165 @@
 {
-  "openapi" : "3.0.0",
-  "info" : {
-    "title" : "CM TECH - Valid",
-    "description" : "Documentação do CM Valid Swagger <br> <ul><li>Para suporte, envie um e-mail para suporte@cmtecnologia.com.br contendo no título <b>#CMValid</b> e no corpo o ID do response ou request realizado;</li><li>Para dúvidas, envie um e-mail para valid@cmtecnologia.com.br;</li><li>Para testes, realize o download do <a href='https://www.getpostman.com/downloads/' target='_blank'>Postman</a> e importe o <b>JSON</b> com o modelo dos <a href='https://s3-sa-east-1.amazonaws.com/valid-docs.cmtecnologia.com.br/CM_Tech_Valid_postman_collection.json' target='_blank'>requests</a>;</li><li>Para acompanhar nossas atualizações acesse nosso <a href='https://valid-releases.cmtecnologia.com.br/' target='_blank'>Release Notes</a>;</li></ul>",
-    "version" : "7.6.0"
+  "swagger": "2.0",
+  "info": {
+    "description": "Integração do portal https://www.ams.br-petrobras.com.br/",
+    "version": "1.0",
+    "title": "Petrobras Petroleo"
   },
-  "servers" : [ {
-    "url" : "https://api-gw.cmtecnologia.com.br/v1/mod-valid",
-    "description" : "Production server (uses live data)"
-  } ],
-  "paths" : {
-    "/example/eligible" : {
-      "get" : {
-        "summary" : "Retorna o request de exemplo de elegibilidade.",
-        "description" : "Retorna o request de exemplo da elegibilidade de um determinado convênio.",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "query",
-          "description" : "ID do convênio.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
+  "basePath": "/",
+  "tags": [],
+  "schemes": ["http"],
+  "paths": {
+    "/api/valid-petrobras-distribuidora/eligible": {
+      "post": {
+        "parameters": [
+          {
+            "name": "Request",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/Request" }
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "example" : {
-                  "statusCode" : 200,
-                  "covenantName" : "care-plus",
-                  "request_example" : {
-                    "covenant" : {
-                      "id" : "c3ad6ffc-d0f2-4d75-b7d5-e264d7484f53",
-                      "card_number" : "CARD_NUMBER",
-                      "credentials" : {
-                        "code" : "CODE",
-                        "user" : "USER",
-                        "password" : "PASSWORD"
-                      }
-                    },
-                    "tiss" : {
-                      "version" : "",
-                      "body" : { }
-                    }
-                  }
-                }
-              }
-            }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "schema": { "$ref": "#/definitions/ResponseData" }
           },
-          "5XX" : {
-            "description" : "Unexpected error."
+          "400": {
+            "description": "BadRequest",
+            "schema": { "$ref": "#/definitions/ResponseErro" }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": { "$ref": "#/definitions/ResponseErro" }
           }
         },
-        "servers" : [ {
-          "url" : "https://api-gw.cmtecnologia.com.br/v1"
-        } ]
-      }
-    },
-    "/example/authorize" : {
-      "get" : {
-        "summary" : "Retorna o request de exemplo da autorização.",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "query",
-          "description" : "ID do convênio.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "object",
-                  "example" : {
-                    "statusCode" : 200,
-                    "covenantName" : "care-plus",
-                    "request_example" : {
-                      "service_character" : "",
-                      "clinical_indication" : "",
-                      "comments" : "",
-                      "procedure_type" : "",
-                      "type_service" : "",
-                      "covenant" : {
-                        "id" : "7a9a09bf-610f-4ce9-ae6b-ced642b94f3b",
-                        "credentials" : {
-                          "user" : "",
-                          "password" : ""
-                        }
-                      },
-                      "medic_requester" : {
-                        "type_council" : "",
-                        "number_council" : "",
-                        "cbo" : ""
-                      },
-                      "medic_executor" : {
-                        "type_council" : "",
-                        "number_council" : "",
-                        "cbo" : ""
-                      },
-                      "procedures" : [ {
-                        "tuss" : "",
-                        "desc" : "",
-                        "amount" : ""
-                      }, {
-                        "tuss" : "",
-                        "desc" : "",
-                        "amount" : ""
-                      } ],
-                      "patient" : {
-                        "name" : "",
-                        "newborn" : "",
-                        "card_number" : ""
-                      },
-                      "attachments" : [ {
-                        "type" : "",
-                        "description" : "",
-                        "filename" : "",
-                        "file" : ""
-                      } ],
-                      "tiss" : {
-                        "version" : "",
-                        "body" : { }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "5XX" : {
-            "description" : "Unexpected error."
-          }
-        },
-        "servers" : [ {
-          "url" : "https://api-gw.cmtecnologia.com.br/v1"
-        } ]
-      }
-    },
-    "/covenants" : {
-      "get" : {
-        "summary" : "Retorna convênio(s) vinculado a conta.",
-        "description" : "Método utilizado para retornar um convênio vinculado a sua conta, caso não tenha nenhum convênio com o id utilizado, será retornado uma lista com todos os convênios.",
-        "parameters" : [ {
-          "name" : "Content-Type",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "X-API-KEY",
-          "in" : "header",
-          "description" : "Chave de acesso do cliente",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "Accept",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "id",
-          "in" : "query",
-          "description" : "ID do convênio",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/CovenantsResponse"
-                }
-              }
-            }
-          },
-          "5XX" : {
-            "description" : "Unexpected error."
-          }
-        }
-      }
-    },
-    "/eligible" : {
-      "post" : {
-        "summary" : "Verifica eligibilidade de um beneficiário.",
-        "parameters" : [ {
-          "name" : "Content-Type",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "X-API-KEY",
-          "in" : "header",
-          "description" : "Chave de acesso do cliente",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "Accept",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/cmvInputData"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Response Eligible"
-                }
-              }
-            }
-          },
-          "4XX" : {
-            "description" : "Bad request or Invalid credentials",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "5XX" : {
-            "description" : "Unexpected error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/data" : {
-      "post" : {
-        "summary" : "Retorna informações de um beneficiário.",
-        "parameters" : [ {
-          "name" : "Content-Type",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "X-API-KEY",
-          "in" : "header",
-          "description" : "Chave de acesso do cliente",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "Accept",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/cmvInputData_1"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/cmvOutputData"
-                }
-              }
-            }
-          },
-          "4XX" : {
-            "description" : "Bad request or Invalid credentials",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "5XX" : {
-            "description" : "Unexpected error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/authorize" : {
-      "post" : {
-        "summary" : "Requisita autorização para o convênio.",
-        "parameters" : [ {
-          "name" : "Content-Type",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "X-API-KEY",
-          "in" : "header",
-          "description" : "Adicionar sua CHAVE da aplicação.",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "Accept",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/request Authorize"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Request Authorize"
-                }
-              }
-            }
-          },
-          "4XX" : {
-            "description" : "Bad request or Invalid credentials",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "5XX" : {
-            "description" : "Unexpected error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/authorize/status" : {
-      "post" : {
-        "summary" : "Requisita o status da autorização para o convênio.",
-        "parameters" : [ {
-          "name" : "Content-Type",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "x-api-key",
-          "in" : "header",
-          "description" : "Adicionar sua CHAVE da aplicação.",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "Accept",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/request Authorize_1"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Request Authorize_1"
-                }
-              }
-            }
-          },
-          "4XX" : {
-            "description" : "Bad request or Invalid credentials",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "5XX" : {
-            "description" : "Unexpected error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/authorize/cancel" : {
-      "post" : {
-        "summary" : "Cancela uma solicitação",
-        "parameters" : [ {
-          "name" : "Content-Type",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "x-api-key",
-          "in" : "header",
-          "description" : "Adicionar sua CHAVE da aplicação.",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "Accept",
-          "in" : "header",
-          "description" : "application/json",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/Requisio"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : "OK",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Request Authorize_2"
-                }
-              }
-            }
-          },
-          "4XX" : {
-            "description" : "Bad request or Invalid credentials",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorCancel"
-                }
-              }
-            }
-          },
-          "5XX" : {
-            "description" : "Unexpected error",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ErrorCancel"
-                }
-              }
-            }
-          }
-        }
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
       }
     }
   },
-  "components" : {
-    "schemas" : {
-      "Error" : {
-        "title" : "Error response",
-        "type" : "object",
-        "properties" : {
-          "error" : {
-            "type" : "string"
-          },
-          "extra" : {
-            "title" : "Error details",
-            "type" : "string"
-          },
-          "ans" : {
-            "type" : "object"
-          },
-          "id" : {
-            "type" : "string"
-          }
-        }
+  "definitions": {
+    "Credentials": {
+      "type": "object",
+      "properties": {
+        "user": { "type": "string" },
+        "password": { "type": "string" }
       },
-      "ErrorCancel" : {
-        "title" : "Error response",
-        "type" : "object",
-        "properties" : {
-          "error" : {
-            "type" : "string"
-          },
-          "extra" : {
-            "title" : "Error details",
-            "type" : "string"
-          },
-          "id" : {
-            "type" : "string"
-          }
-        }
+      "required": ["user", "password"]
+    },
+    "Covenant": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "credentials": { "$ref": "#/definitions/Credentials" }
       },
-      "CovenantsResponse" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string",
-            "example" : "241bef48-ccdc-4d7a-9630-eab21bebc14d"
-          },
-          "name" : {
-            "type" : "string",
-            "example" : "Nome do convênio"
-          },
-          "credentials_keys" : {
-            "type" : "array",
-            "example" : [ "user", "password" ],
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "ans" : {
-            "type" : "string",
-            "example" : "415949"
-          },
-          "cnpj" : {
-            "type" : "string",
-            "example" : "99222333000529"
-          },
-          "type" : {
-            "type" : "string"
-          },
-          "organization" : {
-            "type" : "string",
-            "example" : "PRESTADORA DE SERVIÇOS LTDA"
-          },
-          "active" : {
-            "type" : "string",
-            "example" : "true"
-          },
-          "services" : {
-            "$ref" : "#/components/schemas/CovenantsResponse_services"
-          }
-        }
+      "required": ["id", "credentials"]
+    },
+    "Patient": {
+      "type": "object",
+      "properties": { "card_number": { "type": "string" } },
+      "required": ["card_number"]
+    },
+    "Request": {
+      "type": "object",
+      "properties": {
+        "covenant": { "$ref": "#/definitions/Covenant" },
+        "patient": { "$ref": "#/definitions/Patient" }
       },
-      "CovenantsResponse_services" : {
-        "type" : "object",
-        "properties" : {
-          "eligible" : {
-            "type" : "string",
-            "example" : "true"
-          },
-          "authorize" : {
-            "type" : "string",
-            "example" : "false"
-          },
-          "status" : {
-            "type" : "string",
-            "example" : "true"
-          },
-          "cancel" : {
-            "type" : "string",
-            "example" : "true"
-          }
-        }
+      "required": ["covenant", "patient"]
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "number": { "type": "string" },
+        "neighborhood": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" }
       },
-      "Credentials to login in covenant website" : {
-        "required" : [ "password", "user" ],
-        "type" : "object",
-        "properties" : {
-          "cpf" : {
-            "type" : "string"
-          },
-          "cnpj" : {
-            "type" : "string"
-          },
-          "code" : {
-            "type" : "string"
-          },
-          "user" : {
-            "type" : "string"
-          },
-          "password" : {
-            "type" : "string"
-          }
-        }
+      "required": ["street", "number", "neighborhood", "city", "state"]
+    },
+    "Contact": {
+      "type": "object",
+      "properties": {
+        "prefix": { "type": "string" },
+        "phone": { "type": "string" }
       },
-      "The Covenant Schema" : {
-        "required" : [ "credentials", "id" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "title" : "ID (UUID4) from /covenants to identify covenant",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "062d71cb-34f7-47ab-8ad9-8bd12a3ce180"
-          },
-          "credentials" : {
-            "$ref" : "#/components/schemas/Credentials to login in covenant website"
-          }
-        }
+      "required": ["prefix", "phone"]
+    },
+    "Plan": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "network": { "type": "string" },
+        "name": { "type": "string" },
+        "accommodation": { "type": "string" },
+        "segment": { "type": "string" },
+        "product": { "type": "string" },
+        "companion": { "type": "string" }
       },
-      "Data of patient" : {
-        "required" : [ "card_number" ],
-        "type" : "object",
-        "properties" : {
-          "newborn" : {
-            "title" : "New born patient",
-            "type" : "string",
-            "example" : "true"
-          },
-          "cpf" : {
-            "title" : "CPF",
-            "type" : "string"
-          },
-          "name" : {
-            "title" : "Name of patient",
-            "type" : "string"
-          },
-          "card_number" : {
-            "title" : "Card number from patient (Alphanumeric ?)",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "0123456789"
-          }
-        }
+      "required": [
+        "code",
+        "network",
+        "name",
+        "accommodation",
+        "segment",
+        "product",
+        "companion"
+      ]
+    },
+    "PatientData": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "gender": { "type": "string" },
+        "card_number": { "type": "string" },
+        "birth": { "type": "string" },
+        "cpf": { "type": "string" },
+        "address": { "$ref": "#/definitions/Address" },
+        "contact": { "$ref": "#/definitions/Contact" },
+        "cns": { "type": "string" },
+        "plan": { "$ref": "#/definitions/Plan" }
       },
-      "eligible_medic_executor" : {
-        "type" : "object",
-        "properties" : {
-          "cbo" : {
-            "title" : "CBO",
-            "type" : "string"
-          },
-          "region" : {
-            "title" : "Region",
-            "type" : "string"
-          },
-          "type_council" : {
-            "title" : "Type of council (CRM)",
-            "type" : "string"
-          },
-          "number_council" : {
-            "title" : "Number of council",
-            "type" : "string"
-          }
-        }
+      "required": [
+        "name",
+        "gender",
+        "card_number",
+        "birth",
+        "cpf",
+        "address",
+        "contact",
+        "cns",
+        "plan"
+      ]
+    },
+    "CovenantResponse": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" }
       },
-      "eligible_provider" : {
-        "type" : "object",
-        "properties" : {
-          "city" : {
-            "title" : "City",
-            "type" : "string"
-          },
-          "region" : {
-            "title" : "Region",
-            "type" : "string"
-          },
-          "district" : {
-            "title" : "District",
-            "type" : "string"
-          }
-        }
+      "required": ["id", "name"]
+    },
+    "ResponseData": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string" },
+        "patient": { "$ref": "#/definitions/PatientData" },
+        "covenant": { "$ref": "#/definitions/CovenantResponse" },
+        "id": { "type": "string" }
       },
-      "cmvInputData" : {
-        "title" : "cmvInputData",
-        "required" : [ "covenant", "patient" ],
-        "type" : "object",
-        "properties" : {
-          "covenant" : {
-            "$ref" : "#/components/schemas/The Covenant Schema"
-          },
-          "date" : {
-            "title" : "Date",
-            "type" : "string",
-            "example" : "DD/MM/AAAA"
-          },
-          "procedures" : {
-            "title" : "List of objects with procedures",
-            "type" : "array",
-            "items" : {
-              "type" : "object"
-            }
-          },
-          "type_consultation" : {
-            "title" : "Type of consultation",
-            "type" : "string",
-            "example" : "Atendimento Externo"
-          },
-          "patient" : {
-            "$ref" : "#/components/schemas/Data of patient"
-          },
-          "medic_executor" : {
-            "$ref" : "#/components/schemas/eligible_medic_executor"
-          },
-          "provider" : {
-            "$ref" : "#/components/schemas/eligible_provider"
-          }
-        }
+      "required": ["status", "patient", "covenant", "id"]
+    },
+    "ResponseErro": {
+      "type": "object",
+      "properties": {
+        "error": { "type": "string" },
+        "error_portal": { "type": "string" },
+        "extra": { "type": "string" },
+        "id": { "type": "string" }
       },
-      "Response Eligible" : {
-        "title" : "Response Eligible",
-        "required" : [ "id", "patient", "status" ],
-        "type" : "object",
-        "properties" : {
-          "status" : {
-            "type" : "string",
-            "enum" : [ "true", "false" ]
-          },
-          "patient" : {
-            "$ref" : "#/components/schemas/Response Eligible_patient"
-          },
-          "id" : {
-            "title" : "UUID",
-            "type" : "string"
-          }
-        }
-      },
-      "Data of patient_1" : {
-        "required" : [ "card_number" ],
-        "type" : "object",
-        "properties" : {
-          "card_number" : {
-            "title" : "Card number from patient (Alphanumeric ?)",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "0123456789"
-          }
-        }
-      },
-      "cmvInputData_1" : {
-        "title" : "cmvInputData",
-        "required" : [ "covenant", "patient" ],
-        "type" : "object",
-        "properties" : {
-          "covenant" : {
-            "$ref" : "#/components/schemas/The Covenant Schema"
-          },
-          "patient" : {
-            "$ref" : "#/components/schemas/Data of patient_1"
-          }
-        }
-      },
-      "cmvOutputData" : {
-        "title" : "cmvOutputData",
-        "required" : [ "covenant", "id", "patient", "provider" ],
-        "type" : "object",
-        "properties" : {
-          "patient" : {
-            "$ref" : "#/components/schemas/cmvOutputData_patient"
-          },
-          "covenant" : {
-            "$ref" : "#/components/schemas/cmvOutputData_covenant"
-          },
-          "id" : {
-            "title" : "UUID",
-            "type" : "string"
-          }
-        }
-      },
-      "The Covenant Schema_1" : {
-        "required" : [ "credentials", "id" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "title" : "ID (UUID4) to identify covenant",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "062d71cb-34f7-47ab-8ad9-8bd12a3ce180"
-          },
-          "credentials" : {
-            "$ref" : "#/components/schemas/Credentials to login in covenant website"
-          }
-        }
-      },
-      "The medic requester" : {
-        "required" : [ "cbo", "number_council", "type_council" ],
-        "type" : "object",
-        "properties" : {
-          "type_council" : {
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "CRM",
-            "default" : ""
-          },
-          "number_council" : {
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "cbo" : {
-            "type" : "string"
-          },
-          "region" : {
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "MG"
-          },
-          "name" : {
-            "title" : "The Name the medic",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          }
-        }
-      },
-      "The medic executor" : {
-        "required" : [ "number_council", "type_council" ],
-        "type" : "object",
-        "properties" : {
-          "type_council" : {
-            "title" : "The council type",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "CRM",
-            "default" : ""
-          },
-          "number_council" : {
-            "title" : "The council number",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "default" : ""
-          }
-        }
-      },
-      "authorize_patient" : {
-        "required" : [ "card_number" ],
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "card_number" : {
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "newborn" : {
-            "type" : "string",
-            "enum" : [ "true", "false" ]
-          }
-        }
-      },
-      "authorize_provider_requester" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          },
-          "code" : {
-            "type" : "string"
-          },
-          "cnes" : {
-            "type" : "string"
-          }
-        }
-      },
-      "authorize_procedures" : {
-        "required" : [ "amount", "desc", "tuss" ],
-        "type" : "object",
-        "properties" : {
-          "tuss" : {
-            "title" : "The procedure code tuss",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "desc" : {
-            "title" : "The description of the procedure",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "amount" : {
-            "title" : "The requested quantity of the procedure",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          }
-        }
-      },
-      "authorize_attachments" : {
-        "required" : [ "description", "file", "filename", "type" ],
-        "type" : "object",
-        "properties" : {
-          "type" : {
-            "title" : "the type of the inserted attachment",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "Laudo exame"
-          },
-          "description" : {
-            "title" : "A description for the attachment",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "filename" : {
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "Laudo.pdf"
-          },
-          "file" : {
-            "title" : "file in base64",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          }
-        }
-      },
-      "request Authorize" : {
-        "title" : "request Authorize",
-        "required" : [ "covenant", "medic_requester", "patient", "procedure_type", "procedures", "type_service" ],
-        "type" : "object",
-        "properties" : {
-          "covenant" : {
-            "$ref" : "#/components/schemas/The Covenant Schema_1"
-          },
-          "comments" : {
-            "title" : "Comments or Justifications",
-            "type" : "string"
-          },
-          "guide_number" : {
-            "type" : "string"
-          },
-          "procedure_date" : {
-            "title" : "The date for the procedure",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "used_technique" : {
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "service_character" : {
-            "type" : "string",
-            "enum" : [ "ELT", "URG" ]
-          },
-          "type_service" : {
-            "type" : "string",
-            "example" : "SP/SADT"
-          },
-          "clinical_indication" : {
-            "title" : "The clinical indication",
-            "type" : "string"
-          },
-          "medic_requester" : {
-            "$ref" : "#/components/schemas/The medic requester"
-          },
-          "medic_executor" : {
-            "$ref" : "#/components/schemas/The medic executor"
-          },
-          "patient" : {
-            "$ref" : "#/components/schemas/authorize_patient"
-          },
-          "provider_requester" : {
-            "$ref" : "#/components/schemas/authorize_provider_requester"
-          },
-          "provider_executor" : {
-            "$ref" : "#/components/schemas/authorize_provider_requester"
-          },
-          "procedures" : {
-            "title" : "The list of procedures",
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/authorize_procedures"
-            }
-          },
-          "date" : {
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "DD/MM/AAAA"
-          },
-          "procedure_type" : {
-            "type" : "string",
-            "example" : "Execucao"
-          },
-          "attachments" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/authorize_attachments"
-            }
-          }
-        }
-      },
-      "Request Authorize" : {
-        "title" : "Request Authorize",
-        "required" : [ "document_url", "expiration_date", "id", "message", "password", "patient", "procedures", "provider_guide", "status" ],
-        "type" : "object",
-        "properties" : {
-          "password" : {
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "status" : {
-            "type" : "string",
-            "enum" : [ "true", "false" ]
-          },
-          "message" : {
-            "type" : "string",
-            "enum" : [ "autorizado", "autorizado parcialmente", "em análise", "negado" ]
-          },
-          "document_url" : {
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "provider_guide" : {
-            "title" : "The provider guide number",
-            "type" : "string"
-          },
-          "operator_guide" : {
-            "title" : "The operator guide number",
-            "type" : "string"
-          },
-          "expiration_date" : {
-            "type" : "string"
-          },
-          "patient" : {
-            "$ref" : "#/components/schemas/Request Authorize_patient"
-          },
-          "procedures" : {
-            "title" : "The list of procedures",
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Request Authorize_procedures"
-            }
-          },
-          "id" : {
-            "title" : "ID (UUID4) to identify covenant",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "062d71cb-34f7-47ab-8ad9-8bd12a3ce180",
-            "default" : ""
-          }
-        }
-      },
-      "The Covenant Schema_2" : {
-        "required" : [ "credentials", "id" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "title" : "ID (UUID4) to identify covenant",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "be3f0dbd-0cdc-47ba-a4cb-86d553707869"
-          },
-          "credentials" : {
-            "$ref" : "#/components/schemas/Credentials to login in covenant website"
-          }
-        }
-      },
-      "request Authorize_1" : {
-        "title" : "request Authorize",
-        "required" : [ "covenant" ],
-        "type" : "object",
-        "properties" : {
-          "covenant" : {
-            "$ref" : "#/components/schemas/The Covenant Schema_2"
-          },
-          "provider_guide" : {
-            "type" : "string"
-          },
-          "procedure_type" : {
-            "type" : "string",
-            "example" : "Execucao",
-            "enum" : [ "Execucao", "Pre-Autorizada" ]
-          }
-        }
-      },
-      "Request Authorize_1" : {
-        "title" : "Request Authorize",
-        "required" : [ "document_url", "expiration_date", "id", "message", "password", "patient", "procedures", "provider_guide", "status" ],
-        "type" : "object",
-        "properties" : {
-          "password" : {
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "status" : {
-            "type" : "string",
-            "enum" : [ "true", "false" ]
-          },
-          "message" : {
-            "type" : "string",
-            "enum" : [ "autorizado", "autorizado parcialmente", "em análise", "negado" ]
-          },
-          "document_url" : {
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "provider_guide" : {
-            "title" : "The provider guide number",
-            "type" : "string"
-          },
-          "operator_guide" : {
-            "title" : "The operator guide number",
-            "type" : "string"
-          },
-          "expiration_date" : {
-            "type" : "string"
-          },
-          "patient" : {
-            "$ref" : "#/components/schemas/Request Authorize_patient"
-          },
-          "procedures" : {
-            "title" : "The list of procedures",
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Request Authorize_procedures"
-            }
-          },
-          "id" : {
-            "title" : "ID (UUID4) to identify covenant",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "be3f0dbd-0cdc-47ba-a4cb-86d553707869",
-            "default" : ""
-          }
-        }
-      },
-      "Credentials to login in covenant website_1" : {
-        "required" : [ "password", "user" ],
-        "type" : "object",
-        "properties" : {
-          "user" : {
-            "type" : "string"
-          },
-          "password" : {
-            "type" : "string"
-          }
-        }
-      },
-      "The Covenant Schema_3" : {
-        "required" : [ "credentials", "id" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "title" : "ID (UUID4) to identify covenant",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "be3f0dbd-0cdc-47ba-a4cb-86d553707869"
-          },
-          "credentials" : {
-            "$ref" : "#/components/schemas/Credentials to login in covenant website_1"
-          }
-        }
-      },
-      "Requisio" : {
-        "title" : "Requisição",
-        "required" : [ "covenant" ],
-        "type" : "object",
-        "properties" : {
-          "covenant" : {
-            "$ref" : "#/components/schemas/The Covenant Schema_3"
-          },
-          "guide_number" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Request Authorize_2" : {
-        "title" : "Request Authorize",
-        "required" : [ "message" ],
-        "type" : "object",
-        "properties" : {
-          "message" : {
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "id" : {
-            "title" : "ID (UUID4) to identify covenant",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "f6ed0218-0786-4a87-8f91-e034f1a41cbd",
-            "default" : ""
-          }
-        }
-      },
-      "Response Eligible_patient" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "title" : "Name of patient",
-            "type" : "string"
-          }
-        }
-      },
-      "cmvOutputData_patient_plan" : {
-        "required" : [ "accommodation", "code", "companion", "name", "network", "product", "segment" ],
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "title" : "Code of plan",
-            "type" : "string"
-          },
-          "network" : {
-            "title" : "Plan network",
-            "type" : "string"
-          },
-          "name" : {
-            "title" : "Name of plan",
-            "type" : "string"
-          },
-          "accommodation" : {
-            "title" : "Accomodation",
-            "type" : "string"
-          },
-          "segment" : {
-            "title" : "Segment",
-            "type" : "string"
-          },
-          "product" : {
-            "title" : "Product name",
-            "type" : "string"
-          },
-          "companion" : {
-            "title" : "Companion",
-            "type" : "string"
-          }
-        }
-      },
-      "cmvOutputData_patient" : {
-        "required" : [ "address", "birth", "card_number", "cns", "contact", "cpf", "gender", "name", "plan" ],
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "title" : "Name of patient",
-            "type" : "string"
-          },
-          "gender" : {
-            "title" : "Gender",
-            "type" : "string",
-            "example" : "F/M"
-          },
-          "card_number" : {
-            "title" : "Card number from patient (Alphanumeric ?)",
-            "pattern" : "^(.*)$",
-            "type" : "string",
-            "example" : "0123456789"
-          },
-          "birth" : {
-            "title" : "Date of birth",
-            "pattern" : "/^[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}$/g",
-            "type" : "string",
-            "example" : "DD/MM/AAAA"
-          },
-          "cpf" : {
-            "title" : "CPF",
-            "type" : "string"
-          },
-          "address" : {
-            "title" : "Address",
-            "type" : "object"
-          },
-          "contact" : {
-            "title" : "Contact",
-            "type" : "object"
-          },
-          "cns" : {
-            "title" : "CNS",
-            "type" : "string",
-            "example" : "706400626617081"
-          },
-          "plan" : {
-            "$ref" : "#/components/schemas/cmvOutputData_patient_plan"
-          }
-        }
-      },
-      "cmvOutputData_covenant" : {
-        "required" : [ "id", "name" ],
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "string"
-          },
-          "name" : {
-            "title" : "Name of covenant",
-            "type" : "string"
-          }
-        }
-      },
-      "Request Authorize_patient" : {
-        "type" : "object",
-        "properties" : {
-          "name" : {
-            "type" : "string"
-          }
-        }
-      },
-      "Request Authorize_procedures" : {
-        "required" : [ "amount", "authorized_amount", "desc", "tuss" ],
-        "type" : "object",
-        "properties" : {
-          "tuss" : {
-            "title" : "The procedure code tuss",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "desc" : {
-            "title" : "The description of the procedure",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "amount" : {
-            "title" : "The requested quantity of the procedure",
-            "pattern" : "^(.*)$",
-            "type" : "string"
-          },
-          "authorized_amount" : {
-            "title" : "The authorized quantity of procedure",
-            "type" : "string"
-          }
-        }
-      }
+      "required": ["error", "error_portal", "extra", "id"]
     }
   }
 }
